@@ -11,7 +11,7 @@ while 1:
     
     # displaying battery
     print("\n" + colored(str(battery.percent) + "%", color),"[ ", end="")
-    for j in range(perc):
+    for i in range(perc):
         print(colored("+", "green"), end="")
 
     for j in range(10 - perc):
@@ -19,7 +19,7 @@ while 1:
 
     print(" ]")
     
-    if battery.percent <= 33 and not battery.power_plugged:
+    if battery.percent <= 25 and not battery.power_plugged:
         AppKit.NSBeep()
         color = "yellow"
         sleep(1)
