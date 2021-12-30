@@ -1,30 +1,34 @@
 import psutil # for battery info
 from time import sleep
 import AppKit # for alert sound
+from termcolor import colored
+
+color = "white"
 
 while 1:
     battery = psutil.sensors_battery()
     perc = int(battery.percent / 10)
     
     # displaying battery
-    print(str(battery.percent) + "%","[ ", end="")
+    print("\n" + colored(str(battery.percent) + "%", color),"[ ", end="")
     for j in range(perc):
-        print("+", end="")
+        print(colored("+", "green"), end="")
 
     for j in range(10 - perc):
-        print("-", end="")
+        print(colored("-", "red"), end="")
 
     print(" ]")
     
-    if battery.percent <= 25 and not battery.power_plugged:
+    if battery.percent <= 33 and not battery.power_plugged:
         AppKit.NSBeep()
-        print("PLUG IN")
+        color = "yellow"
         sleep(1)
 
     elif battery.percent >= 75 and battery.power_plugged:
         AppKit.NSBeep()
-        print("UNPLUG")
+        color = "yellow"
         sleep(1)
 
     else:
-        sleep(5) 
+        color = "white"
+        sleep(5)
