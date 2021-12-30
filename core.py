@@ -4,18 +4,27 @@ import AppKit # for alert sound
 
 while 1:
     battery = psutil.sensors_battery()
-    plugged = battery.power_plugged
-    print(str(battery.percent) + "%")
+    perc = int(battery.percent / 10)
     
-    if battery.percent and not plugged <= 25:
+    # displaying battery
+    print(str(battery.percent) + "%","[ ", end="")
+    for j in range(perc):
+        print("+", end="")
+
+    for j in range(10 - perc):
+        print("-", end="")
+
+    print(" ]")
+    
+    if battery.percent <= 25 and not battery.power_plugged:
         AppKit.NSBeep()
-        print("unplug")
+        print("PLUG IN")
         sleep(1)
 
-    elif battery.percent and plugged >= 75:
+    elif battery.percent >= 75 and battery.power_plugged:
         AppKit.NSBeep()
-        print("plug")
+        print("UNPLUG")
         sleep(1)
 
     else:
-        sleep(30)
+        sleep(5) 
