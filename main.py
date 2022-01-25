@@ -1,9 +1,13 @@
+# CONFIGURE
+min = 25
+max = 75
+
 import psutil # for battery info
 from time import sleep
 import AppKit # for alert sound
 from termcolor import colored
 
-color = "white"
+color = "white" # dont configure this
 
 while 1:
     battery = psutil.sensors_battery()
@@ -19,12 +23,12 @@ while 1:
 
     print("]")
     
-    if battery.percent <= 25 and not battery.power_plugged:
+    if battery.percent <= min and not battery.power_plugged:
         AppKit.NSBeep()
         color = "yellow"
         sleep(1)
 
-    elif battery.percent >= 75 and battery.power_plugged:
+    elif battery.percent >= max and battery.power_plugged:
         AppKit.NSBeep()
         color = "yellow"
         sleep(1)
